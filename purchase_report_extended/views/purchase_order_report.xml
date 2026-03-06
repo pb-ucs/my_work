@@ -1,0 +1,140 @@
+<odoo>
+    <data>
+        <!-- Purchase Order Report Definition -->
+        <record id="action_report_custom_purchase_order_header" model="ir.actions.report">
+            <field name="name">Purchase Order </field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">purchase_report_extended.custom_report_purchase_order</field>
+            <field name="report_file">purchase_report_extended.custom_report_purchase_order</field>
+            <field name="print_report_name">"Purchase Order"</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- New report for custom header -->
+        <template id="custom_report_purchase_order">
+            <data inherit_id="purchase.report_purchaseorder">
+                <xpath expr="//t[1]" position="replace">
+                    <t t-call="web.html_container">
+                        <t t-foreach="docs" t-as="o">
+                            <t t-set="custom_purchase_header" t-value="True"/>
+                            <t t-call="purchase.report_purchaseorder_document" t-lang="o.partner_id.lang"/>
+                        </t>
+                    </t>
+                </xpath>
+            </data>
+        </template>
+
+        <!-- Custom external layout -->
+        <template id="custom_external_layout_boxed" inherit_id="web.external_layout_boxed">
+            <xpath expr="//div[@class='col-4']" position="replace">
+                        <t t-if="custom_purchase_header">
+                            <img t-att-src="image_data_uri(company.report_image or company.logo)" alt="Logo" style="height: 150px; width: 700px; object-fit: contain;"/>
+                        </t>
+                        <t t-else="">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="height: 150px; width: 700px; object-fit: contain;"/>
+                        </t>
+                    <div class="col-6 text-end mb4 fs-3">
+                        <t t-if="company.report_header and company.report_header.strip() != '&lt;p&gt;&lt;br&gt;&lt;/p&gt;'">
+                            <div class="mt0 h4" t-field="company.report_header"/>
+                        </t>
+                        <t t-if="custom_purchase_header">
+                            <div name="company_address" class="float-end mb4">
+                                <ul class="list-unstyled">
+                                    <li class="mt-2"><t t-esc="company.report_street"/></li>
+                                    <li class="mt-2"><t t-esc="company.report_street2"/></li>
+                                    <li class="mt-2">
+                                        <t t-esc="company.report_city"/>
+                                        <t t-esc="company.report_zip"/>
+                                    </li>
+                                    <li class="mt-2"><t t-esc="company.report_country_id.name"/></li>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div name="company_address" class="float-end mb4">
+                                <ul class="list-unstyled">
+                                    <li t-if="company.is_company_details_empty">
+                                        <t t-esc="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                    </li>
+                                    <li t-else=""><t t-esc="company.company_details"/></li>
+                                    <li t-if="forced_vat">
+                                        <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                                        <span t-esc="forced_vat"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </t>
+                    </div>
+            </xpath>
+            <xpath expr="//div[contains(@class, 'o_footer_content')]" position="replace">
+                <div class="text-center">
+                    <t t-if="custom_purchase_header">
+                        <div t-if="company.report_phone or company.report_email or company.report_website"
+                             style="display: flex; justify-content: center; gap: 5px;">
+                            <span t-if="company.report_phone">
+                                <t t-esc="company.report_phone"/>
+                            </span>
+                            <span t-if="company.report_phone and (company.report_email or company.report_website)"> / </span>
+                            <span t-if="company.report_email">
+                                <a t-att-href="'mailto:%s' % company.report_email" style="text-decoration:none; color: #999999;">
+                                    <t t-esc="company.report_email"/>
+                                </a>
+                            </span>
+                            <span t-if="company.report_email and company.report_website"> / </span>
+                            <span t-if="company.report_website">
+                                <a t-att-href="company.report_website" style="text-decoration:none; color: #999999;">
+                                    <t t-esc="company.report_website"/>
+                                </a>
+                            </span>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="text-center">
+                            <div t-field="company.report_footer"/>
+                            <div t-if="report_type == 'pdf'">
+                                Page: <span class="page"/> / <span class="topage"/>
+                            </div>
+                            <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                                <span t-field="o.name"/>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Custom Shipping Address Layout -->
+        <template id="custom_external_layout_address" inherit_id="purchase_stock.report_purchaseorder_document">
+            <xpath expr="//div[@t-if='o.picking_type_id and o.picking_type_id.warehouse_id']" position="replace">
+                <t t-if="custom_purchase_header">
+                    <br/>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.name"/>
+                    <br/>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.last_name"/>
+                    <br/>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.street"/>
+                    <br/>
+                    <t t-if="o.picking_type_id.warehouse_id.partner_id.street2">
+                        <span t-field="o.picking_type_id.warehouse_id.partner_id.street2"/>
+                        <br/>
+                    </t>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.city"/>,
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.state_id.name"/>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.zip"/>
+                    <br/>
+                    <span t-field="o.picking_type_id.warehouse_id.partner_id.country_id.name"/>
+                </t>
+                <t t-else="">
+                    <br/>
+                    <div t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                        <span t-field="o.picking_type_id.warehouse_id.name"/>
+                        <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                             t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>
