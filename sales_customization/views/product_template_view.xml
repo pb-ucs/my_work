@@ -1,0 +1,50 @@
+<odoo>
+
+    <record id="product_template_form_sales" model="ir.ui.view">
+    <field name="name">product.template.form</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+            <page string="Last 5 Sale">
+                <field name="sale_report_ids" readonly="1">
+                    <list >
+                        <field name="order_reference" string="Sales Order"/>
+                        <field name="product_id" string="Product"/>
+                        <field name="partner_id" string="Customer"/>
+                        <field name="product_uom_qty" string="Quantity"/>
+                        <field name="price_unit" string="Unit Price"/>
+                        <field name="price_total" string="Total"/>
+                    </list>
+                </field>
+            </page>
+        </xpath>
+    </field>
+    </record>
+
+    <record id="product_template_form_purchase" model="ir.ui.view">
+    <field name="name">product.template.form</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+            <page string="Last 5 purchase">
+                <field name="purchase_report_ids" readonly="1">
+                    <list >
+                        <field name="order_id" string="Order Reference"/>
+                        <field name="date_approve" string="date"/>
+                        <field name="partner_id" string="vendoe"/>
+                        <field name="product_uom_qty" string="Quantity"/>
+                        <field name="price_unit" string="Unit Price"/>
+                        <field name="price_subtotal" string="Total Untaxed"/>
+                    </list>
+                </field>
+            </page>
+        </xpath>
+    </field>
+    </record>
+
+</odoo>
+
+ 
+

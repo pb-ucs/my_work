@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<!-- <record id="sales_report_details_temp" model="ir.actions.report">
+        <field name="name">Quotation</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sales_customization.sales_report_details</field>
+        <field name="report_file">sales_customization.sales_report_details</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record> -->
+
+    <!-- <template id='sales_temp'>
+        <div class='header'>
+            <div class='text-center' style='border-bottom: 1px solid black;'>
+                <h1>custom header</h1>
+            </div>
+        </div>
+
+        <div class='article o_report_layout_standard'>
+            <t t-out='0'/>
+        </div>
+
+        <div class='footer o_standard_footer'>
+            <div class='text-center' style='border-top: 1px solid black;'>
+                <h1>custom footer</h1>
+            </div>
+        </div>
+    </template> -->
+
+    <!-- <template id=''>
+        <t t-call='web.html_container'>
+            <t t-foreach="docs" t-as="o">
+                <t t-call='' -->
+
+    <record id="sales_details_temp" model="ir.actions.report">
+        <field name="name">Quotation</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">sales_customization.sales_details</field>
+        <field name="report_file">sales_customization.sales_details</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
+

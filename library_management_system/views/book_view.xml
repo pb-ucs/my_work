@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   
+   <!--  <data noupdate="0">
+      <record id="your_parameter_id" model="ir.config_parameter">
+      <field name="key">auth_pass_min_length</field>
+      <field name="value">5</field>
+      </record>
+    </data> -->
+
+     <!-- <record id="action_mark_as_progress" model="ir.actions.server">
+        <field name="name">Mark as Draft</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                if records.status == 'Start':
+                    records.action_draft()
+        </field>
+    </record>
+
+    <record id="action_mark_as_done" model="ir.actions.server">
+        <field name="name">Mark as Confirm</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                if records.status == 'Draft':
+                    records.action_confirmed()
+        </field>
+    </record>
+
+    <record id="action_mark_as_cancel" model="ir.actions.server">
+        <field name="name">Mark as Cancel</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                if records.status == 'Confirmed':
+                    records.action_cancel()
+        </field>
+    </record>
+
+    <record id="action_mark_as_start" model="ir.actions.server">
+        <field name="name">Mark as Start</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                if records.status == 'Cancel':
+                    records.action_start()
+        </field>
+    </record> -->
+
+   <!--  <record id="action_mark_as_update" model="ir.actions.server">
+        <field name="name">update</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                records.action_update()
+        </field>
+    </record> -->
+
+    <record id="action_mark_as_create" model="ir.actions.server">
+        <field name="name">create</field>
+        <field name="model_id" ref="model_library_book"/>
+        <field name="binding_model_id" ref="model_library_book"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for records in records:
+                record.action_create()
+        </field>
+    </record>
+
+    <record id="view_library_book_list" model="ir.ui.view">
+        <field name="name">library.book.list</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list string="Library Books" >
+                <field name="name" />
+                <field name="author"/>
+                <field name="publisher"/>
+                <field name="category"/>
+                <field name="ISBN"/>
+                <field name="price" />
+                <field 
+                    name="status" 
+                    decoration-success='status == "done"' 
+                    decoration-danger='status == "progress"'
+                    decoration-info='status == "start"'/>
+
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field 
+                        name='status' 
+                        widget='statusbar' />
+
+                    <button 
+                        name="action_draft"
+                        type="object"
+                        string="draft"
+                        class = 'btn-primary'
+                        invisible="status == 'Start'"/>
+
+                    <button 
+                        name = 'action_confirmed' 
+                        type = 'object' 
+                        string = 'confirmed' 
+                        class = 'btn-primary'
+                        invisible="status == 'Draft'"/>
+
+                    <button 
+                        name = 'action_cancel' 
+                        type = 'object' 
+                        string = 'cancel' 
+                        class = 'btn-primary'
+                        invisible="status == 'Cancel'"/>
+
+
+                        
+                </header>
+
+                    <sheet>
+
+                        <group>
+                            <field name="name"/>
+                            <field name="author"/>
+                            <field name="publisher"/>
+                            <field name="category"/>
+                            <field name="ISBN"/>
+                            <field name="price"/>
+                            <field name="language"/>
+                            <field name="available_copies"/>
+                            <!-- <field name="test1" />
+                            <field name="test2" /> -->
+                            <!-- <field name="test3" />
+                            <field name="test4" />  
+                            <field name="test5" /> -->
+                        </group>
+
+                        <!-- found attributes from YT -->
+                        <!-- <group>
+                            <field name="name" required="author==1"/>   
+                            <field name="author" readonly="price==0 or author=='parth' "/> 
+                            <field name="publisher" readonly="price==0"/>
+                            <field name="category" readonly="price==0"/>
+                            <field name="ISBN" invisible="price==0"/>
+                            <field name="price"/>
+                            <field name="language" readonly="price==0"/>
+                            <field name="available_copies" readonly="price==0"/>
+                        </group> -->
+
+                        <!-- view_attrbutes for fields -->
+                        <!-- <group string="Book Information">
+                        <field name="name"
+                               string="Book Title"
+                               required="1"/>
+
+                        <field name="author"
+                               help="Name of the book author"/>
+
+                        <field name="ISBN"
+                               readonly="1"
+                               help="ISBN cannot be modified once set"/>
+
+                        <field name="publisher"
+                               invisible="category == 'action'"/>
+
+                        <field name="category"
+                               placeholder="Genre of the book"/>
+
+                        <field name="price"
+                               widget="monetary"
+                               help="Selling price of the book"/>
+
+                        <field name="language"
+                               nolabel="1"
+                               placeholder="Language of the book"/>
+
+                        <field name="category"
+                               context="{'default_category': 'General'}"/>
+
+                        <field name="author"
+                               class="text-primary"/>
+                    </group> -->
+
+                    <!-- view_attributes for data -->
+                    <!-- <group string="Book Information">
+
+                        <field name="category"
+                               context="{'default_category': 'Fiction'}"
+                               string="Category"/>
+
+                        <field name="available_copies"
+                               readonly="1"
+                               force_save="1"
+                               string="Available Copies"/>
+
+                        <field name="price"
+                               digits="[10,2]"
+                               string="Price with 2 decimals"/>
+
+                        <field name="ISBN"
+                               password="True"
+                               string="ISBN Code"/>
+
+                        <field name="name"
+                               default_focus="1"
+                               string="Book Title"/>
+
+                        <field name="author"
+                               trim="True"
+                               string="Author Name"/>
+                    </group> -->
+                    </sheet>
+            </form>
+        </field>
+    </record>
+
+   
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Library Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- Kanban View for Books -->
+    <record id="view_library_book_kanban" model="ir.ui.view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column">
+                    <!-- quick_create="false"
+                    records_draggable="true"
+                    default_group_by="category"
+                    sample="1" -->  
+                <field name="name"/>
+                <field name="author"/>
+                <field name="publisher"/>
+                <field name="category"/>
+                <field name="ISBN"/>
+                <field name="price"/>
+               
+                <templates>
+                    <t t-name="card">
+                        <div class="row">
+                            <div class="col-8">
+                                <field class="fw-bolder" name ='name'/>
+                            </div>
+                            <div class="col-4">
+                                <field class="badge rounded-pill" name ='author'/>
+                            </div>
+                        </div>
+                        <div class="oe_kanban_details">
+                            <!-- <strong>
+                                <field name="name"/>
+                            </strong> -->
+                            <div>
+                                <field name="author"/>
+                            </div>
+                            <div>
+                                <field name="publisher"/>
+                            </div>
+                            <div>
+                                <field name="category"/>
+                            </div>
+                            <div>
+                                <field name="ISBN"/>
+                            </div>
+                            <div>
+                                <field name="price"/>
+                            </div>
+                            
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+</odoo>
+
+

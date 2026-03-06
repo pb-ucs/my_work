@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="student_list" model="ir.ui.view">
+        <field name="name">orm.student.list</field>
+        <field name="model">orm.student</field>
+        <field name="arch" type="xml">
+            <list>
+                <!-- <field name="full_name"/> -->
+                <field name="name"/>
+                <field name="email"/>
+                <field name="department_id"/>
+                <field name="cgpa"/>
+                <field name="fees_paid"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="orm_student_form_view" model="ir.ui.view">
+        <field name="name">orm.student.form</field>
+        <field name="model">orm.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+ 
+                    <button
+                        name = 'write'
+                        type = 'object'
+                        string = 'Save'
+                        class = 'btn-primary'/>
+
+                    <button
+                        name = 'duplicate'
+                        type = 'object'
+                        string = 'Copy'
+                        class = 'btn-primary'/>
+
+                    <button
+                        name = 'delete_rec'
+                        type = 'object'
+                        string = 'Delete'
+                        class = 'btn-primary'/> 
+
+                    <button
+                        name = 'custom_search'
+                        type = 'object'
+                        string = 'Search'
+                        class = 'btn-primary'/>
+
+                    <button
+                        name = 'flush'
+                        type = 'object'
+                        string = 'test'
+                        class = 'btn-primary'/>
+
+                    <button
+                        name = 'name_search'
+                        type = 'object'
+                        string = 'name'
+                        class = 'btn-primary'/>
+
+                </header>
+                <sheet>
+                    <notebook>
+                        <page string='Details'>
+                            <group>
+                            <field name="name"/>
+                            <field name="l_name"/>
+                            <field name="email"/>
+                            <field name="department_id"/>
+                            <field name="dob"/>
+                            <field name="cgpa"/>
+                            <field name="fees_paid"/>
+                            </group>
+                    
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">orm.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

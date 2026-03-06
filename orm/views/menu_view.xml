@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="orm_root" name="ORM"/>
+
+    <menuitem id="menu_student" 
+        name="Students" 
+        parent="orm_root" 
+        action="action_student"/>
+
+    <menuitem id="menu_departmeny" 
+        name="Departments" 
+        parent="orm_root" 
+        action="action_department"/>
+</odoo>

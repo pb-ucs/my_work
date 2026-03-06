@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- <template id="sales_report_details">
+        <t t-call="web.html_container">
+           <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout"> -->
+                   <!--  <div class="page">
+                        <div class="oe_structure"/>
+                        <h2>Quotation Report</h2>
+                        <br></br>
+                        <p>
+                            Name :
+                            <span t-field="o.partner_id.name"/>
+                        </p>
+                    </div> -->
+                    <!-- <div class='page'>
+                        <h1>hello, how are you?</h1>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template> -->
+
+
+    <template id="sales_details">
+        <t t-call="web.html_container">
+           <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style>
+                        .table {
+                            width: 95%;
+                            font-size: 12px;
+                            padding: 10px;
+                        }
+
+                        .table th {
+                            background-color: skyblue;
+                            border: 1px solid black;
+                            padding: 5px;
+                            text-align: left;
+                        }
+
+                        .table td {
+                            border: 1px solid black;
+                            padding: 5px;
+                            font-size: 12px;
+                        }
+
+                        h5 {
+                            border: 1px solid black;
+                            background-color: skyblue;
+
+                        }
+
+                    </style>
+
+                    <!-- <div class="row mb-3">
+                    <div class="col-6">
+                        <img src="/sales_customization/static/src/img/UNEX-logo-1.png"
+                            style="max-height:80px;"/>
+                    </div>
+
+                    <div class="col-6 text-end">
+                        <h2>QUATATION REPORT</h2>
+                    </div>
+                    </div> -->
+
+                    <hr/>
+                    <div class='row'>
+                        <div class='col-4'>
+                        <div t-field="o.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                            <t> Tax ID: <span t-field="o.partner_invoice_id.vat"/></t>
+                        </div>
+
+                        <div class='col-4'>
+                        <div >
+                            <p><strong>ORDER NUMBER :</strong><span t-field="o.name"/></p>
+                            <p><strong>ORDER DATE :</strong><span t-field="o.date_order"/></p>
+                            <p><strong>CREATED BY :</strong> Parth</p>
+                            <p><strong>EMAIL :</strong><span t-field="o.partner_id.email"/></p>
+                        </div>
+                        </div>
+
+                        <div class='col-4'>
+                        <div >
+                            <p><strong>CUSTOMER :</strong><span t-field="o.partner_id.name"/></p>
+                            <p><strong>F.O.B :</strong> N/A</p>
+                            <p><strong>CONTACT :</strong><span t-field="o.partner_id.phone"/></p>
+                            <p><strong>SHIP BY :</strong> N/A</p>
+                        </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+
+               
+                    
+               <!--  <span t-field="o.name" style="font-weight: bold;"/>
+                <span t-field="o.partner_id"/> -->
+
+                    <div class="page">
+                    <!-- <h2>Quotation Report</h2> -->
+
+                    <div class='row' >
+                        <div class='col-6' >
+                        <table class='table'>
+                            <th>
+                            <strong>BILL TO</strong>
+                            </th>
+                            <tr><td>
+                            <div t-field="o.partner_invoice_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            </td></tr>
+                        </table>
+                        </div>
+
+                        <!-- <div class="col-md-6">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>SHIP TO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span t-field="o.partner_invoice_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span t-field="o.partner_invoice_id.phone"/></td>
+                                </tr>
+                                <tr>
+                                    <td><span t-field="o.partner_invoice_id.email"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div> -->
+
+                        <div class='col-6' >
+                        <table class='table'>
+                            <th>
+                            <strong>SHIP TO</strong>
+                            </th>
+                            <tr><td>
+                            <div t-field="o.partner_shipping_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            </td></tr>
+                        </table>
+                        </div>
+                    </div>
+                    <br/>
+
+                        
+                        <div >
+                            <p><strong>PROJECT NAME :</strong> N/A</p>
+                            <p><strong>PROJECT DESCRIPTION :</strong> N/A</p>
+                        </div>
+                       
+
+                        <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <!-- <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Amount</th> -->
+                                    <th>QTY</th>
+                                    <th>Prod. Name</th>
+                                    <th>SHIP TO</th>
+                                    <!-- <th>DESCRIPTION</th>
+                                    <th>UNIT WT</th>
+                                    <th>EXIT WT</th> -->
+                                    <th>UNIT COST</th>
+                                    <th>EXIT COST</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.order_line" t-as="line">
+                                    <!-- <tr>
+                                        <td>
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.product_uom_qty"/>
+                                        </td>
+                                        <td>
+                                        <span t-field="line.price_subtotal"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>
+                                            <span t-field="line.product_uom_qty"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.product_template_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.date_order"/>
+                                        </td>
+                                         <td>
+                                        <span t-field="line.price_subtotal"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </td>
+                                        <td>
+                                            <p>N/A</p>
+                                        </td>
+                                    </tr>
+                                </t>
+                                    <tr><td t-att-colspan="4">
+                                        <strong>Assembly Total:</strong></td>
+                                        <td class='text-end'>
+                                        <span t-field="o.amount_untaxed"/>
+                                    </td></tr>
+
+                                    <tr class='text-end'><td t-att-colspan="5">
+                                        <strong>NET  MATERIAL COST:</strong>
+                                        <span t-field="o.amount_total"/>  
+                                    </td></tr>
+                                </tbody>
+                            </table>
+
+                            <!-- <div class="row mt-3">
+                                <div class="col-6"/>
+                                <div class="col-6 text-end">
+
+                                    <p>
+                                        <strong>Assembly Total:</strong>
+                                        <span t-field="o.amount_untaxed"/>
+                                    </p>
+
+                                    <p>
+                                        <strong>NET MATERIAL COST:</strong>
+                                        <span t-field="o.amount_total"/>
+                                    </p>
+
+                                </div>
+                            </div> -->
+
+
+                            <div class="mt-3">
+                            <p>
+                                <strong>Freight Details Note: </strong>
+                                The information provided above is an estimate only. Unex offers freight estimates as a Value Added service to assist in the overall project pricing. Freight estimates are based on fuel surcharges at the time of quotation. Exact freight rates will be determined at the time of shipment. These rates can increase or decrease based on the surcharges at the time of shipment. Unex cannot be responsible for fluctuating freight costs
+                            </p>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5><strong>TERMS AND CONDITIONS</strong></h5>
+                            <ol>
+                                <li>Payment terms are NET 30 DAYS from the date of our invoice, subject to customer credit approval. As a result, seller may require a deposit at the time of order
+and/or progress payments. Please note that our terms do not allow for retainage and payment to UNEX is not contingent upon payment from your customer. All unpaid amounts will be subject to a late payment fee of 1% per month</li>
+                                <li>Prices on this quotation are good for 7 DAYS from date of quote. All pricing is $USD and all payments must be made in US Dollars.</li>
+                                <li>Seller warrants that the goods are as described in this agreement, except for a separate written warranty given by seller with respect to certain goods. Seller
+makes no other warranty of any kind, expressed or implied.</li>
+                                <li>All sales and quotations are FOB, Lakewood, NJ factory, unless otherwise stipulated. Orders containing excess of $5,000 in Flow Cell structure may be split
+shipped with the rack structure shipping FOB Taylor, MI. Speedcell orders may ship from Lakewood, NJ, Zeeland, MI or Laredo, TX depending on quantity
+and inventory levels. Buyer must make all claims for damage or loss in transit to the transportation company. Any return of goods to Seller by Buyer must be authorized by Seller. Any freight cost associated with return of goods is the responsibility of the buyer. Seller’s delivery of the goods to carrier shall constitute
+delivery to Buyer. All risk of loss or damage in transit shall be borne by Buyer.</li>
+                                <li>Compliance with State and Local Codes is the responsibility of the customer.</li>
+                                <li>The lead time shown is based on the production schedule at the time of quoting. Time is based on date of shipment from factory. Lead times are subject to
+change without notice. If approval drawings are required, please add 1 week to the quoted lead time.</li>
+                                <li>Unless otherwise specified, Seller reserves the right to make deliveries in installments.</li>
+                            </ol>
+                        </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
+

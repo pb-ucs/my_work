@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_book,access.library.book,model_library_book,,1,1,1,1
+access_library_member,access.library.member,model_library_member,,1,1,1,1
+access_library_issue,access.library.issue,model_library_issue,,1,1,1,1
+access_member_detail,access.member.detail,model_member_detail,,1,1,1,1
+access_member_test,access.member.test,model_member_test,,1,1,1,1
+access_book_extension,access.book.extension,model_book_extension,,1,1,1,1
+
+
+
+
+
+

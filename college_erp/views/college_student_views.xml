@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="student_list" model="ir.ui.view">
+        <field name="name">college.student.list</field>
+        <field name="model">college.student</field>
+        <field name="arch" type="xml">
+            <list>
+                        <field name="full_name"/>
+                <field name="name"/>
+                <field name="l_name"/>
+                <field name="department_id"/>
+                        <!-- <field name="age"/> -->
+                        <!-- <field name="dob"/> -->
+                <field name="fees_paid"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="college_student_form_view" model="ir.ui.view">
+        <field name="name">college.student.form</field>
+        <field name="model">college.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="create"
+                        type="object"
+                        string="Save"
+                        class="btn-primary"/>
+
+                    <button name="write"
+                        type="object"
+                        string="Update"
+                        class="btn-primary"/>
+
+                    <button name="duplicate_rec"
+                        type="object"
+                        string="Duplicate"
+                        class="btn-primary"/>
+
+                    <button name="delete_rec"
+                        type="object"
+                        string="Delete"
+                        class="btn-primary"/>
+
+                     <button name="custom_search"
+                        type="object"
+                        string="Search"
+                        class="btn-primary"/>
+
+                            <!-- <button name="delete_exist_rec"
+                                type="object"
+                                string="exists"
+                                class="btn-primary"/> -->
+
+                            <!-- <button name="read_data"
+                                type="object"
+                                string="Read"
+                                class="btn-primary"/> -->
+                </header>
+                <sheet>
+                    <notebook>
+                        <page string='Details'>
+                            <group>
+                            <field name="name"/>
+                            <field name="l_name"/>
+                            <field name="email"/>
+                            <field name="dob"/>
+                                    <!-- <field name="age"/> -->
+                            <field name="cgpa"/>
+                            </group>
+                        </page>
+                    
+                        <page string="other">
+                            <group>
+                            <field name="department_id"/>
+                            <field name="subject_ids" />
+                            <field name="fees_paid"/>
+                            </group>
+                        </page>
+
+                        <page string="Marks">
+                            <group>
+                            <field name="mark_ids">
+                                <list>
+                                    <field name="subject_id"/>
+                                    <field name="marks"/>
+                                </list>
+                            </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="college_student_search" model="ir.ui.view">
+        <field name="name">college.student.search</field>
+        <field name="model">college.student</field>
+        <field name="arch" type="xml">
+            <search>
+                    <field name="name" />
+                    <field name="department_id" />
+                    <searchpanel>
+                        <field  name="department_id"  />
+                    </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">college.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

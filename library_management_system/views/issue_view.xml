@@ -1,0 +1,66 @@
+<odoo>
+
+    <!-- LIST VIEW -->
+    <record id="view_library_issue_list" model="ir.ui.view">
+        <field name="name">library.issue.list</field>
+        <field name="model">library.issue</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="issue_date"/>
+                <field name="return_date"/>
+                <field name="test"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM VIEW WITH NOTEBOOK -->
+    <record id="view_library_issue_form" model="ir.ui.view">
+        <field name="name">library.issue.form</field>
+        <field name="model">library.issue</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                   
+                    <div class="title"> Issue Book </div>
+
+                   
+                    <notebook>
+
+                        
+                        <page string="Issue Details">
+                            <group>
+                                <field name="name"/>
+                                <field name="book_id"/>
+                                <field name="member_id"/>
+                                <field name="test"/>
+                            </group>
+                        </page>
+
+                        
+                        <page string="Dates">
+                            <group>
+                                <field name="issue_date"/>
+                                <field name="return_date"/>
+                            </group>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_library_issue" model="ir.actions.act_window">
+        <field name="name">Issues</field>
+        <field name="res_model">library.issue</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_library_issue_list"/>
+    </record>
+
+</odoo>

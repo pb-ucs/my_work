@@ -1,0 +1,8 @@
+<odoo>
+    <data noupdate="0">
+      <record id="your_parameter_id" model="ir.config_parameter">
+      <field name="key">default.tax.rate</field>
+      <field name="value">15</field>
+      </record>
+    </data>
+</odoo>

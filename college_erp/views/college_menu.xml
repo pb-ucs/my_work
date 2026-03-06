@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="college_root" name="College ERP"/>
+
+    <menuitem id="menu_department" 
+        name="Departments" 
+        parent="college_root" 
+        action="action_department"/>
+
+    <menuitem id="menu_subject" 
+        name="Subjects" 
+        parent="college_root" 
+        action="action_subject"/>
+
+    <menuitem id="menu_student" 
+        name="Students" 
+        parent="college_root" 
+        action="action_student"/>
+</odoo>

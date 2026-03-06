@@ -1,0 +1,26 @@
+{
+    'name': 'Library Management System',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
+    'summary': 'Stores books records and customers data',
+    'description': 'Trying demo',
+    'author': 'Parth',
+    'category': 'Services',
+    'depends': ['base','sale','contacts'],
+    'data': [
+    'security/ir.model.access.csv',
+    'security/security_group.xml',
+    'security/security_rule.xml',
+    "wizard/test_view.xml",
+    'wizard/wizard_view.xml',
+    'views/book_view.xml',
+    # 'views/config_view.xml',
+    'views/member_view.xml',
+    'views/issue_view.xml',
+    'views/library_menu.xml',
+],
+
+    'application': True,
+    'installable': True,
+    'auto_install': False,
+}

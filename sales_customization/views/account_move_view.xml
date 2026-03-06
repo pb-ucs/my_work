@@ -1,0 +1,16 @@
+<odoo>
+    <record id="account_move_form_order_line" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="before">
+                    <field name='c_email'/>
+                    <!-- <field name='email'/> -->
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+ 
+
