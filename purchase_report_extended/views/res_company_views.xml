@@ -1,0 +1,48 @@
+<odoo>
+    <record id="view_res_company_form_extended" model="ir.ui.view">
+        <field name="name">res.company.form.extended</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Report Settings">
+                    <group>
+                        <field name="report_image" widget="image" class="oe_avatar" style="width: 100px; height: 100px;"/>
+                    </group>
+                    <group style="display: flex; gap: 20px;">
+                        <!-- Address Section -->
+                        <div style="flex: 1;">
+                            <span class="o_form_label">
+                                <b>Address</b>
+                            </span>
+                            <div class="o_address_format" style="display: flex; flex-direction: column; gap: 3px;">
+                                <field name="report_street" placeholder="Street..." style="width: 100%;"/>
+                                <field name="report_street2" placeholder="Street 2..." style="width: 100%;"/>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <field name="report_city" placeholder="City" style="flex: 1; margin-right: 10px;"/>
+                                    <field name="report_state_id" placeholder="State" style="flex: 1; margin-left: 10px;"/>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <field name="report_zip" placeholder="ZIP" style="flex: 1; margin-right: 10px;"/>
+                                    <field name="report_country_id" placeholder="Country" options="{'no_open': True, 'no_create': True}" style="flex: 1; margin-left: 10px;"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Details Section -->
+                        <div style="flex: 1;">
+                            <span class="o_form_label">
+                                <b>Contact Details</b>
+                            </span>
+                            <div class="o_address_format" style="display: flex; flex-direction: column; gap: 3px;">
+                                <field name="report_email" placeholder="Email..." style="width: 100%;"/>
+                                <field name="report_phone" placeholder="Phone..." style="width: 100%;"/>
+                                <field name="report_website" placeholder="Website..." style="width: 100%;"/>
+                            </div>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
